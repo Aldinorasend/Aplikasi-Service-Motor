@@ -195,10 +195,10 @@ func cariDataCustBin(C arrCustomer, n int, cariId string) int {
 
 }
 
-// CRUD DATA SPAREPART
+
 func addSparepart(S *arrSparePart, n *int) {
 	var id, name string
-	var qty, price int // Deklarasi Variabel
+	var qty, price int 
 	fmt.Print("Masukkan ID Sparepart : ")
 	fmt.Scan(&id)
 	fmt.Print("Masukkan Nama Sparepart : ")
@@ -206,71 +206,69 @@ func addSparepart(S *arrSparePart, n *int) {
 	fmt.Print("Jumlah Sparepart : ")
 	fmt.Scan(&qty)
 	fmt.Print("Harga Sparepart / Pcs : ")
-	fmt.Scan(&price)          //Meminta inputan user
-	if konfirmasi() == true { // meminta konfirmasi user  bahwa data yang diinputkan akan ditambah ke array
+	fmt.Scan(&price)          
+	if konfirmasi() == true { 
 		S[*n].idSpare = id
 		S[*n].name = name
 		S[*n].stok = qty
-		S[*n].harga = price                      // Assign field yang ada di array Sparepart dengan value yang telah diinputkan
-		fmt.Println("Data berhasil ditambahkan") //Alert jika data sukses di tambah
-		*n++                                     // jumlah data yang ada pada array sparepart bertambah 1 yang awalnya 0
+		S[*n].harga = price                      
+		fmt.Println("Data berhasil ditambahkan") 
+		*n++                                     
 	} else {
-		fmt.Print("Data Gagal ditambahkan") //Alert jika data gagal ditambahkan
+		fmt.Print("Data Gagal ditambahkan")
 	}
 
 }
 func editSparepart(S *arrSparePart, n int) {
 	var name string
 	var qty, price int
-	var cariId string // deklarasi variabel yang akan digunakan
+	var cariId string 
 	fmt.Print("ID Sparepart yang ingin dirubah : ")
-	fmt.Scan(&cariId)                              // meminta inputan user id mana yang akan dirubah
-	if cariDataSparepartSeq(*S, n, cariId) != -1 { // memanggil func cariDataSparepart untuk mencari Id yang diinputkan dengan metode sequential search, jika sesuai dengan id yang dicari maka dia akan mengembalikan index nya perulangan akan terus jalan jika nilai function tersebut tidak sama dengan -1
-		i := cariDataSparepartSeq(*S, n, cariId) //akan meng assign nilai i dengan hasil return index yang dicari jika ketemu
+	fmt.Scan(&cariId)                             
+	if cariDataSparepartSeq(*S, n, cariId) != -1 { 
+		i := cariDataSparepartSeq(*S, n, cariId)
 		fmt.Print("Masukkan Nama Sparepart : ")
 		fmt.Scan(&name)
 		fmt.Print("Jumlah Sparepart : ")
 		fmt.Scan(&qty)
 		fmt.Print("Harga Sparepart / Pcs : ")
-		fmt.Scan(&price)          // meminta inputan user sebagai value baru yang nantinya akan di assign ke array tersebut
-		if konfirmasi() == true { // meminta konfirmasi user  bahwa data yang diinputkan akan ditambah ke array
+		fmt.Scan(&price)          
+		if konfirmasi() == true { 
 			S[i].name = name
 			S[i].stok = qty
-			S[i].harga = price                     // assign field yang ada pada array dengan index yang telah direturn sebelumnya dan akan merubah nilai field tersebut dengan inputan yang diminta sebelumnya
-			fmt.Println("Data Berhasil di update") // alert jika data berhasil di update
+			S[i].harga = price                     
+			fmt.Println("Data Berhasil di update")
 		} else {
-			fmt.Println("Data gagal di update") // alert jika data tidak berhasil di update
+			fmt.Println("Data gagal di update") 
 		}
 	} else {
-		fmt.Println("Data yang dicari tidak ada") // jika kondisi if tidak terpenuhi (data yang dicari tidak ada pada array tersebut) maka akan print tampilan di samping
+		fmt.Println("Data yang dicari tidak ada")
 		fmt.Println(" ")
 	}
 }
 func deleteSparepart(S *arrSparePart, n *int) {
-	var cariId string //salin dari yang editSparepart aja gip dari sini
+	var cariId string 
 	fmt.Print("ID Sparepart yang ingin dihapus : ")
 	fmt.Scan(&cariId)
 	if cariDataSparepartSeq(*S, *n, cariId) != -1 {
 		idx := cariDataSparepartSeq(*S, *n, cariId)
-		if konfirmasi() { // sampe sini
-			for j := idx; j < *n-1; j++ { // memulai perulangan dengan index pertamanya yaitu hasil dari func cariData bukan dari 0 dan berhenti ketika semua data sudah di cek
-				S[j] = S[j+1] // pada array sparepart yang dimulai dari j yang sudah di assign sebelumnya, di assign dengan nilai 1 index didepannya atau data tersebut dimundurkan 1
+		if konfirmasi() {
+			for j := idx; j < *n-1; j++ { 
+				S[j] = S[j+1] 
 
 			}
-			fmt.Println("Data Berhasil Di hapus") // alert message jika sukses hapus
+			fmt.Println("Data Berhasil Di hapus") 
 			*n--
 		} else {
-			fmt.Println("Data gagal di hapus") // alert message jika gagal
+			fmt.Println("Data gagal di hapus") 
 		}
 	} else {
-		fmt.Println("Data yang dicari tidak ada") // jika kondisi if tidak terpenuhi (data yang dicari tidak ada pada array tersebut) maka akan print tampilan di samping
+		fmt.Println("Data yang dicari tidak ada") 
 		fmt.Println(" ")
 	}
 }
 
-// END
 
-// CRUD DATA CUSTOMER
 func addCust(C *arrCustomer, n *int) {
 	var id, name string
 	fmt.Print("Masukkan ID Customer : ")
@@ -334,9 +332,7 @@ func deleteCust(C *arrCustomer, n *int) {
 	}
 }
 
-// END
 
-// CRUD DATA TRANSAKSI
 func addTransaksi(T *arrTransaksi, n *int, spareParts *arrSparePart, costumers arrCustomer) {
 	var idCust, idSpare, id, tgl string
 	var qty int
@@ -487,9 +483,7 @@ func deleteTransaksi(T *arrTransaksi, n *int, spareParts *arrSparePart, costumer
 	}
 }
 
-// END
 
-// KUMPULAN PRINT
 func printSparePart(S arrSparePart, n int) {
 	fmt.Println("--------------")
 	fmt.Println("Data SparePart")
@@ -542,8 +536,7 @@ func printTransaksi(T arrTransaksi, n int) {
 
 }
 
-// END
-// FITUR LAIN
+
 func SelectionSortTanggal(T *arrTransaksi, n int) {
 
 	var idx_min, i, j int
